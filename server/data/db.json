@@ -1,0 +1,166 @@
+{
+  "users": [
+    {
+      "id": "u_379bf9527d7759e0_19d18df2afe",
+      "email": "admin@gmail.com",
+      "password": {
+        "salt": "90face8170d8bb647569119c995e1263",
+        "hash": "75cd26954d36b3f9f2fa3a488a8adf23d70c8a056c84ceb9ddeaa183a35059fda2798f933436cd02529b39e9c450677618a4e5e61e180d71b93d6f44e537613c",
+        "iterations": 120000
+      },
+      "displayName": "admin",
+      "storeName": "Anti Rugi",
+      "createdAt": "2026-03-23T04:06:11.967Z",
+      "subscriptionExpiresAt": "2026-08-14T04:06:11.967Z",
+      "isAdmin": true
+    }
+  ],
+  "sessions": [
+    {
+      "token": "850361dc2597b8e8be5a3a25a403e33b6c53a7179250e123b34a6f8723519369",
+      "userId": "u_379bf9527d7759e0_19d18df2afe",
+      "expiresAt": "2026-03-30T04:06:11.967Z",
+      "createdAt": "2026-03-23T04:06:11.968Z"
+    },
+    {
+      "token": "009375fbc8a602b7b43772f92cc1dc8da786ac44d591ec6ec85f3fb1b7bd62c4",
+      "userId": "u_379bf9527d7759e0_19d18df2afe",
+      "expiresAt": "2026-03-30T04:06:25.952Z",
+      "createdAt": "2026-03-23T04:06:25.954Z"
+    },
+    {
+      "token": "1939551ecf0a3944f9a89365a9f5c7aeda40be570acf8cb6902dc7172d14f05e",
+      "userId": "u_379bf9527d7759e0_19d18df2afe",
+      "expiresAt": "2026-03-30T04:06:56.145Z",
+      "createdAt": "2026-03-23T04:06:56.147Z"
+    },
+    {
+      "token": "298eaf65badc24cac946c685b1f1ea438b4ca375eae9fad385216fc1e0349776",
+      "userId": "u_379bf9527d7759e0_19d18df2afe",
+      "expiresAt": "2026-03-30T04:11:59.047Z",
+      "createdAt": "2026-03-23T04:11:59.048Z"
+    },
+    {
+      "token": "d97632232738ad645d2a0ebd03568d50bffeb548ab9edf16a582872868ae5693",
+      "userId": "u_379bf9527d7759e0_19d18df2afe",
+      "expiresAt": "2026-03-30T05:10:14.928Z",
+      "createdAt": "2026-03-23T05:10:14.931Z"
+    },
+    {
+      "token": "ff74009481b41562c0272f397671a60a8e9426bbeee0e7f8102f4b1634682150",
+      "userId": "OWNER_ID",
+      "expiresAt": "2026-03-24T05:15:07.720Z",
+      "createdAt": "2026-03-23T05:15:07.713Z"
+    },
+    {
+      "token": "86e04a8534df0a35771be37873c18a48237d048b09cded4b10ed5d80e069c9c9",
+      "userId": "OWNER_ID",
+      "expiresAt": "2026-03-24T05:15:30.451Z",
+      "createdAt": "2026-03-23T05:15:30.451Z"
+    },
+    {
+      "token": "93261a47da4adcf127657d76b42a37040b8b45d70f7a93f374c0b90560e0f7f7",
+      "userId": "OWNER_ID",
+      "expiresAt": "2026-03-24T05:17:23.239Z",
+      "createdAt": "2026-03-23T05:17:23.239Z"
+    },
+    {
+      "token": "bb90377bd38c87956fb382f12d8f7981cca2837a982161d72c715571924d3373",
+      "userId": "OWNER_ID",
+      "expiresAt": "2026-03-24T05:20:13.655Z",
+      "createdAt": "2026-03-23T05:20:13.655Z"
+    },
+    {
+      "token": "9035fa3d20fecd59fd125c45c7c45d1518316616d4971c6c604344e70d2cbd96",
+      "userId": "OWNER_ID",
+      "expiresAt": "2026-03-24T05:21:42.647Z",
+      "createdAt": "2026-03-23T05:21:42.647Z"
+    },
+    {
+      "token": "97bd575669273d5f5ad89ea4b82cfe6c6d0429768074a332c721eb1668d8c6db",
+      "userId": "OWNER_ID",
+      "expiresAt": "2026-03-24T05:22:14.185Z",
+      "createdAt": "2026-03-23T05:22:14.185Z"
+    },
+    {
+      "token": "e63593084f8589455b333830a5c6b541891f9f60e489108bbe43ac3bb4e197ab",
+      "userId": "u_379bf9527d7759e0_19d18df2afe",
+      "expiresAt": "2026-03-30T05:32:22.820Z",
+      "createdAt": "2026-03-23T05:32:22.822Z"
+    },
+    {
+      "token": "7dc6f9d1b9ac467e669bd18fcf5e5445e8152a32bb612246beedb099ee1c9e18",
+      "userId": "OWNER_ID",
+      "expiresAt": "2026-03-24T05:34:03.146Z",
+      "createdAt": "2026-03-23T05:34:03.146Z"
+    },
+    {
+      "token": "12323428fc31030f17fb208091d2dc744eb4f05adf24ea4a7deefd4e378df297",
+      "userId": "OWNER_ID",
+      "expiresAt": "2026-03-24T05:34:35.647Z",
+      "createdAt": "2026-03-23T05:34:35.647Z"
+    },
+    {
+      "token": "5285e7c920b7dfe00ea66ff79637ce6bf18372aabf32987a3bfc17a0cec02677",
+      "userId": "u_379bf9527d7759e0_19d18df2afe",
+      "expiresAt": "2026-03-30T05:34:57.437Z",
+      "createdAt": "2026-03-23T05:34:57.438Z"
+    },
+    {
+      "token": "7f40d482534d879302bc5f95ee4acf7b8a59879d8bf4fbf83b4dc15589e9816d",
+      "userId": "OWNER_ID",
+      "expiresAt": "2026-03-25T13:29:49.298Z",
+      "createdAt": "2026-03-24T13:29:49.282Z"
+    },
+    {
+      "token": "08d242b0d6397099ffefbe809b43825525d2a2be16021d5a3f244d1e931aee86",
+      "userId": "OWNER_ID",
+      "expiresAt": "2026-03-25T13:30:01.433Z",
+      "createdAt": "2026-03-24T13:30:01.433Z"
+    },
+    {
+      "token": "b158a43a382b2d648ec3bc7d88a0670f15efdcff444d4c6f2e438648896107aa",
+      "userId": "OWNER_ID",
+      "expiresAt": "2026-03-25T13:30:37.529Z",
+      "createdAt": "2026-03-24T13:30:37.529Z"
+    },
+    {
+      "token": "45d90df7b64acb6194fdefa52491341b6bc4813ae8d659bb84a965ebf9f92afd",
+      "userId": "u_379bf9527d7759e0_19d18df2afe",
+      "expiresAt": "2026-03-31T13:35:22.112Z",
+      "createdAt": "2026-03-24T13:35:22.113Z"
+    }
+  ],
+  "menuItems": [
+    {
+      "id": "m_5c608d992fd1a5fd_19d18e4a8e4",
+      "userId": "u_379bf9527d7759e0_19d18df2afe",
+      "name": "aa",
+      "price": 15000,
+      "category": "Lainnya",
+      "isActive": true,
+      "createdAt": "2026-03-23T04:12:11.876Z",
+      "updatedAt": "2026-03-23T04:12:11.876Z"
+    }
+  ],
+  "sales": [
+    {
+      "id": "sale_340fa6747081f221_19d18e4f2d0",
+      "userId": "u_379bf9527d7759e0_19d18df2afe",
+      "createdAt": "2026-03-23T04:12:30.800Z",
+      "items": [
+        {
+          "id": "m_5c608d992fd1a5fd_19d18e4a8e4",
+          "name": "aa",
+          "price": 15000,
+          "quantity": 1,
+          "category": "Lainnya"
+        }
+      ],
+      "subtotal": 15000,
+      "tax": 1500,
+      "total": 16500,
+      "paymentMethod": "tunai"
+    }
+  ]
+}
