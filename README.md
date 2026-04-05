@@ -26,7 +26,7 @@ APP_URL=http://localhost:3000
 
 ## 3) Install dependencies
 
-```bashss
+```bash
 npm install
 ```
 
