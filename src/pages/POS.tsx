@@ -375,7 +375,7 @@ export default function POS() {
         </div>
 
         {/* Right Side: Order Detail */}
-        <aside className="flex w-full lg:w-96 flex-col border-t lg:border-t-0 lg:border-l border-slate-200 bg-white max-h-[55vh] lg:max-h-none">
+        <aside className="flex w-full lg:w-96 flex-col border-t lg:border-t-0 lg:border-l border-slate-200 bg-white max-h-[80vh] lg:max-h-none overflow-hidden">
           <div className="flex items-center justify-between px-4 sm:px-6 py-4 border-b border-slate-200">
             <h2 className="text-lg font-bold">Detail Pesanan</h2>
             <button 
