@@ -477,7 +477,7 @@ export default function POS() {
                   <div className="text-sm font-black text-slate-900">Pembayaran Tunai</div>
                   <button
                     type="button"
-                    className="text-xs font-bold text-[#137fec] hover:underline"
+                    className="px-4 py-2 rounded-lg bg-[#137fec] text-white text-xs font-bold hover:bg-[#137fec]/90 transition-colors disabled:opacity-50"
                     onClick={() => setCashReceivedInput(String(total))}
                     disabled={cart.length === 0}
                   >
