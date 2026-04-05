@@ -470,10 +470,10 @@ export default function PosSales() {
                 onClick={() => setSelected(s)}
               >
                 <div className="flex items-start justify-between gap-4">
-                  <div className="min-w-0">
-                    <div className="flex items-center gap-2">
-                      <ReceiptText className="size-4 text-slate-400" />
-                      <div className="font-black truncate">Penjualan</div>
+                  <div className="min-w-0 flex-1">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <ReceiptText className="size-4 text-slate-400 shrink-0" />
+                      <div className="font-black">Penjualan</div>
                       <span className="text-xs font-bold rounded-full bg-slate-100 px-2 py-1 text-slate-600">
                         {s.items.length} item
                       </span>
@@ -485,7 +485,7 @@ export default function PosSales() {
                   </div>
                   <div className="shrink-0 text-right">
                     <div className="text-sm font-black text-[#137fec]">{formatRupiah(s.total)}</div>
-                    <div className="text-[11px] text-slate-400">{s.id}</div>
+                    <div className="text-[11px] text-slate-400 truncate max-w-[100px] sm:max-w-none">{s.id}</div>
                   </div>
                 </div>
               </button>
@@ -504,17 +504,17 @@ export default function PosSales() {
           </div>
           <div className="divide-y divide-slate-100">
             {shiftHistory.map((day) => (
-              <div key={day.dateKey} className="p-4 sm:p-5 flex items-center justify-between gap-3">
+              <div key={day.dateKey} className="p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                 <div className="min-w-0">
                   <div className="font-black text-slate-900">{formatDateOnly(day.lastCreatedAt)}</div>
                   <div className="text-xs text-slate-500">{day.transaksi} transaksi</div>
                 </div>
-                <div className="text-right shrink-0 flex flex-col items-end gap-2">
-                  <div>
+                <div className="flex items-center justify-between sm:justify-end gap-3 w-full sm:w-auto">
+                  <div className="text-right sm:text-right">
                     <div className="text-sm font-black text-[#137fec]">{formatRupiah(day.totalKas)}</div>
                     <div className="text-[11px] text-slate-400">{day.dateKey}</div>
                   </div>
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-2 shrink-0">
                     <button
                       type="button"
                       onClick={() => setSelectedShiftDateKey(day.dateKey)}
