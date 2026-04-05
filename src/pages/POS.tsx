@@ -318,7 +318,7 @@ export default function POS() {
 
       <main className="flex flex-1 overflow-hidden flex-col lg:flex-row">
         {/* Left Side: Catalog */}
-        <div className="flex flex-1 flex-col overflow-hidden h-[50vh] lg:h-auto">
+        <div className="flex flex-1 flex-col overflow-hidden h-[45vh] lg:h-auto">
           {/* Categories */}
           <div className="flex gap-2 overflow-x-auto bg-white px-4 sm:px-6 py-3 border-b border-slate-200 no-scrollbar">
             {categories.map(cat => (
@@ -375,7 +375,7 @@ export default function POS() {
         </div>
 
         {/* Right Side: Order Detail */}
-        <aside className="flex w-full lg:w-96 flex-col border-t lg:border-t-0 lg:border-l border-slate-200 bg-white h-[50vh] lg:h-auto overflow-hidden">
+        <aside className="flex w-full lg:w-96 flex-col border-t lg:border-t-0 lg:border-l border-slate-200 bg-white h-[55vh] lg:h-auto">
           <div className="flex items-center justify-between px-4 sm:px-6 py-4 border-b border-slate-200">
             <h2 className="text-lg font-bold">Detail Pesanan</h2>
             <button 
@@ -386,7 +386,7 @@ export default function POS() {
             </button>
           </div>
 
-          <div className="flex-1 overflow-y-auto px-4 sm:px-6 py-4">
+          <div className="flex-1 overflow-y-auto px-4 sm:px-6 py-4 min-h-0">
             <div className="space-y-4">
               <AnimatePresence>
                 {cart.map(item => (
@@ -426,8 +426,8 @@ export default function POS() {
                 ))}
               </AnimatePresence>
               {cart.length === 0 && (
-                <div className="flex flex-col items-center justify-center h-full py-12 text-slate-400">
-                  <Bolt className="size-12 opacity-20 mb-4" />
+                <div className="flex flex-col items-center justify-center py-8 text-slate-400">
+                  <Bolt className="size-10 opacity-20 mb-2" />
                   <p className="text-sm">Belum ada pesanan</p>
                 </div>
               )}
