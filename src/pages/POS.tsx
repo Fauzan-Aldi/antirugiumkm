@@ -90,6 +90,7 @@ export default function POS() {
   }, [activeMenu, searchQuery, selectedCategory]);
 
   const addToCart = (product: PosMenuItem) => {
+    console.log('DEBUG - isExpired:', isExpired, 'isAdmin:', account?.isAdmin, 'expiryDate:', expiryDate);
     if (isExpired && !account?.isAdmin) {
       window.alert('Masa aktif akun telah berakhir. Silakan hubungi CS untuk perpanjang.');
       return;
