@@ -34,6 +34,7 @@ export default function POS() {
   const expiryDate = account?.subscriptionExpiresAt ? new Date(account.subscriptionExpiresAt) : null;
   const daysLeft = expiryDate ? Math.ceil((expiryDate.getTime() - Date.now()) / (1000 * 60 * 60 * 24)) : 0;
   const isTrial = daysLeft > 0 && daysLeft <= 7;
+  const isExpired = expiryDate ? expiryDate.getTime() <= Date.now() : false;
 
   // Initialize notifications
   useEffect(() => {
@@ -89,6 +90,10 @@ export default function POS() {
   }, [activeMenu, searchQuery, selectedCategory]);
 
   const addToCart = (product: PosMenuItem) => {
+    if (isExpired && !account?.isAdmin) {
+      window.alert('Masa aktif akun telah berakhir. Silakan hubungi CS untuk perpanjang.');
+      return;
+    }
     setCart(prev => {
       const existing = prev.find(item => item.id === product.id);
       if (existing) {
@@ -151,6 +156,10 @@ export default function POS() {
   }, [cart.length]);
 
   const saveSale = async () => {
+    if (isExpired && !account?.isAdmin) {
+      window.alert('Masa aktif akun telah berakhir. Silakan hubungi CS untuk perpanjang.');
+      return;
+    }
     if (cart.length === 0) return;
     if (paymentMethod === 'tunai' && total > 0 && cashReceived < total) {
       window.alert('Uang tunai kurang dari total belanja.');
@@ -343,9 +352,14 @@ export default function POS() {
                 {filteredProducts.map(product => (
                   <motion.button 
                     key={product.id}
-                    whileTap={{ scale: 0.98 }}
+                    whileTap={isExpired && !account?.isAdmin ? {} : { scale: 0.98 }}
                     onClick={() => addToCart(product)}
-                    className="group flex flex-col items-start rounded-xl border border-slate-200 bg-white p-3 shadow-sm hover:border-[#137fec] transition-all text-left"
+                    disabled={isExpired && !account?.isAdmin}
+                    className={`group flex flex-col items-start rounded-xl border border-slate-200 p-3 shadow-sm transition-all text-left ${
+                      isExpired && !account?.isAdmin 
+                        ? 'bg-slate-100 opacity-50 cursor-not-allowed' 
+                        : 'bg-white hover:border-[#137fec]'
+                    }`}
                   >
                     <div className="mb-3 aspect-square w-full overflow-hidden rounded-lg bg-slate-50 relative">
                       <div className="flex h-full w-full items-center justify-center text-4xl bg-slate-100 group-hover:scale-110 transition-transform duration-300">
@@ -531,11 +545,13 @@ export default function POS() {
             )}
 
             <button 
-              disabled={cart.length === 0 || loading || (paymentMethod === 'tunai' && total > 0 && cashReceived < total)}
+              disabled={cart.length === 0 || loading || (paymentMethod === 'tunai' && total > 0 && cashReceived < total) || (isExpired && !account?.isAdmin)}
               onClick={saveSale}
               className="w-full rounded-xl bg-[#137fec] py-4 text-center text-base font-bold text-white shadow-lg shadow-[#137fec]/30 hover:bg-[#137fec]/90 transition-all active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed inline-flex items-center justify-center gap-2"
             >
-              {saved ? (
+              {isExpired && !account?.isAdmin ? (
+                'Masa Aktif Habis - Hubungi CS'
+              ) : saved ? (
                 <>
                   <CheckCircle2 className="size-5" />
                   Tersimpan
