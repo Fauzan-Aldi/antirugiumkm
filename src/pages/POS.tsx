@@ -2,6 +2,7 @@ import {useMemo, useState, useEffect} from 'react';
 import {Bolt, Search, Bell, UserCircle, Clock, Trash2, Minus, Plus, Banknote, Wallet, CheckCircle2, X} from 'lucide-react';
 import {motion, AnimatePresence} from 'motion/react';
 import {usePos} from '../pos/PosContext';
+import {useSubscriptionGuard} from '../pos/useSubscriptionGuard';
 import type {PosCartItem, PosMenuItem, PosSalePaymentMethod} from '../pos/types';
 import Toast from '../components/Toast';
 import {getMenuIcon} from '../utils/menuIcons';
@@ -17,6 +18,7 @@ type Notification = {
 
 export default function POS() {
   const {account, menuItems, categories, addSale, loading} = usePos();
+  const { isExpired } = useSubscriptionGuard();
   const [cart, setCart] = useState<PosCartItem[]>([]);
   const [selectedCategory, setSelectedCategory] = useState("Semua");
   const [searchQuery, setSearchQuery] = useState("");
@@ -24,6 +26,11 @@ export default function POS() {
   const [cashReceivedInput, setCashReceivedInput] = useState<string>('');
   const [saved, setSaved] = useState(false);
   const [trialToast, setTrialToast] = useState(false);
+  
+  // Redirect if expired (handled by useSubscriptionGuard)
+  if (isExpired && !account?.isAdmin) {
+    return null; // Will redirect
+  }
   
   // Notification State
   const [notifications, setNotifications] = useState<Notification[]>([]);
@@ -34,7 +41,6 @@ export default function POS() {
   const expiryDate = account?.subscriptionExpiresAt ? new Date(account.subscriptionExpiresAt) : null;
   const daysLeft = expiryDate ? Math.ceil((expiryDate.getTime() - Date.now()) / (1000 * 60 * 60 * 24)) : 0;
   const isTrial = daysLeft > 0 && daysLeft <= 7;
-  const isExpired = expiryDate ? expiryDate.getTime() <= Date.now() : false;
 
   // Initialize notifications
   useEffect(() => {

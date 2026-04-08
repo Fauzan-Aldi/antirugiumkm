@@ -1,6 +1,7 @@
 import {useMemo, useState} from 'react';
 import {Pencil, Plus, Trash2} from 'lucide-react';
 import {usePos} from '../../pos/PosContext';
+import {useSubscriptionGuard} from '../../pos/useSubscriptionGuard';
 import type {PosMenuItem} from '../../pos/types';
 import Modal from '../../components/Modal';
 import Toast from '../../components/Toast';
@@ -27,7 +28,13 @@ const EMPTY_DRAFT: Draft = {
 };
 
 export default function PosMenu() {
-  const {menuItems, upsertMenuItem, deleteMenuItem} = usePos();
+  const {menuItems, upsertMenuItem, deleteMenuItem, account} = usePos();
+  const { isExpired } = useSubscriptionGuard();
+  
+  // Redirect if expired (handled by useSubscriptionGuard)
+  if (isExpired && !account?.isAdmin) {
+    return null; // Will redirect
+  }
   const [draft, setDraft] = useState<Draft>(EMPTY_DRAFT);
   const [q, setQ] = useState('');
   const [busy, setBusy] = useState(false);

@@ -2,6 +2,7 @@ import {useMemo, useState} from 'react';
 import {History, Lock, ReceiptText} from 'lucide-react';
 import jsPDF from 'jspdf';
 import {usePos} from '../../pos/PosContext';
+import {useSubscriptionGuard} from '../../pos/useSubscriptionGuard';
 import type {PosSale} from '../../pos/types';
 
 function formatRupiah(value: number) {
@@ -33,7 +34,7 @@ function toLocalDateKey(d: Date) {
   const y = d.getFullYear();
   const m = String(d.getMonth() + 1).padStart(2, '0');
   const day = String(d.getDate()).padStart(2, '0');
-  return `${y}-${m}-${day}`;
+  return `${y}-${m}-${day}`;                                                   
 }
 
 function SaleDetail({sale, onClose}: {sale: PosSale; onClose: () => void}) {
@@ -137,6 +138,13 @@ function ShiftDetailModal({
 
 export default function PosSales() {
   const {sales, loading, account} = usePos();
+  const { isExpired } = useSubscriptionGuard();
+  
+  // Redirect if expired (handled by useSubscriptionGuard)
+  if (isExpired && !account?.isAdmin) {
+    return null; // Will redirect
+  }
+  
   const [q, setQ] = useState('');
   const [selected, setSelected] = useState<PosSale | null>(null);
   const [pdfBusy, setPdfBusy] = useState(false);
