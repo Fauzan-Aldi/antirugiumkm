@@ -551,6 +551,40 @@ export default function POS() {
               </div>
             )}
 
+            {paymentMethod === 'transfer' && (
+              <div className="rounded-2xl border border-slate-200 bg-white p-4 space-y-3">
+                <div className="flex items-center justify-between">
+                  <div className="text-sm font-black text-slate-900">Pembayaran Transfer</div>
+                  <div className="px-3 py-1 rounded-lg bg-emerald-100 text-emerald-700 text-xs font-bold">
+                    Langsung Lunas
+                  </div>
+                </div>
+
+                <div className="rounded-xl bg-slate-50 p-4 text-center">
+                  <div className="text-xs font-bold text-slate-500 mb-1">Total Transfer</div>
+                  <div className="text-2xl font-black text-[#137fec]">{formatPrice(total)}</div>
+                </div>
+
+                <div className="text-xs text-slate-600 space-y-2">
+                  <p className="font-bold text-slate-900">Instruksi Pembayaran:</p>
+                  <p>1. Transfer sesuai total nominal di atas</p>
+                  <p>2. Konfirmasi pembayaran ke pembeli</p>
+                  <p>3. Klik "Simpan Penjualan" setelah transfer diterima</p>
+                </div>
+
+                <div className="rounded-xl bg-emerald-50 border border-emerald-100 p-3 text-sm">
+                  <div className="flex justify-between">
+                    <span className="text-slate-600">Status</span>
+                    <span className="font-black text-emerald-700">Menunggu Konfirmasi</span>
+                  </div>
+                  <div className="flex justify-between mt-1 border-t border-emerald-200 pt-2">
+                    <span className="text-slate-700 font-black">Total Tagihan</span>
+                    <span className="font-black text-[#137fec]">{formatPrice(total)}</span>
+                  </div>
+                </div>
+              </div>
+            )}
+
             <button 
               disabled={cart.length === 0 || loading || (paymentMethod === 'tunai' && total > 0 && cashReceived < total) || (isExpired && !account?.isAdmin)}
               onClick={saveSale}
