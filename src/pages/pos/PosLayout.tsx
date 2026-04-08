@@ -21,7 +21,23 @@ const NAV: NavItem[] = [
   {to: '/kasir/settings', label: 'Pengaturan Akun', Icon: Settings},
 ];
 
-const NavItemLink: React.FC<{item: NavItem}> = ({item}) => {
+const LOCKED_PATHS = ['/kasir', '/kasir/menu', '/kasir/penjualan'];
+
+const NavItemLink: React.FC<{item: NavItem; isExpired?: boolean; isAdmin?: boolean; onLockedClick?: () => void}> = ({item, isExpired, isAdmin, onLockedClick}) => {
+  const isLocked = isExpired && !isAdmin && LOCKED_PATHS.some(path => item.to === path || item.to.startsWith(path + '/'));
+  
+  if (isLocked) {
+    return (
+      <button
+        onClick={onLockedClick}
+        className="flex w-full items-center gap-3 rounded-xl px-3 py-2 text-sm font-semibold text-slate-400 cursor-not-allowed bg-slate-50"
+      >
+        <item.Icon className="size-5" />
+        <span className="hidden lg:inline">{item.label}</span>
+      </button>
+    );
+  }
+  
   return (
     <NavLink
       to={item.to}
@@ -39,8 +55,8 @@ const NavItemLink: React.FC<{item: NavItem}> = ({item}) => {
   );
 };
 
-function DesktopSidebar({onLogout, isAdmin, daysLeft}: {onLogout: () => void; isAdmin?: boolean; daysLeft: number}) {
-  const isTrial = daysLeft > 0 && daysLeft <= 7;
+function DesktopSidebar({onLogout, isAdmin, daysLeft, isExpired, onLockedClick}: {onLogout: () => void; isAdmin?: boolean; daysLeft: number; isExpired?: boolean; onLockedClick?: () => void}) {
+  const isTrial = daysLeft > 0 && daysLeft <= 7 && !isExpired;
 
   return (
     <aside className="hidden md:flex md:w-20 lg:w-64 shrink-0 flex-col border-r border-slate-200 bg-white p-3">
@@ -57,7 +73,7 @@ function DesktopSidebar({onLogout, isAdmin, daysLeft}: {onLogout: () => void; is
         </div>
       </div>
       <nav className="flex flex-col gap-2 flex-1">
-        {NAV.map((item) => <NavItemLink key={item.to} item={item} />)}
+        {NAV.map((item) => <NavItemLink key={item.to} item={item} isExpired={isExpired} isAdmin={isAdmin} onLockedClick={onLockedClick} />)}
       </nav>
       
       <div className="mt-auto border-t border-slate-100 pt-3 flex flex-col gap-2">
@@ -93,26 +109,43 @@ function DesktopSidebar({onLogout, isAdmin, daysLeft}: {onLogout: () => void; is
   );
 }
 
-function MobileBottomNav() {
+function MobileBottomNav({isExpired, isAdmin, onLockedClick}: {isExpired?: boolean; isAdmin?: boolean; onLockedClick?: () => void}) {
   return (
     <nav className="md:hidden fixed bottom-0 left-0 right-0 z-50 border-t border-slate-200 bg-white/95 backdrop-blur">
       <div className="mx-auto max-w-screen-sm grid grid-cols-4">
-        {NAV.map((item) => (
-          <NavLink
-            key={item.to}
-            to={item.to}
-            end={item.end}
-            className={({isActive}) =>
-              [
-                'flex flex-col items-center justify-center gap-1 py-2 text-[11px] font-semibold',
-                isActive ? 'text-[#137fec]' : 'text-slate-600',
-              ].join(' ')
-            }
-          >
-            <item.Icon className="size-5" />
-            <span className="leading-none">{item.label}</span>
-          </NavLink>
-        ))}
+        {NAV.map((item) => {
+          const isLocked = isExpired && !isAdmin && LOCKED_PATHS.some(path => item.to === path || item.to.startsWith(path + '/'));
+          
+          if (isLocked) {
+            return (
+              <button
+                key={item.to}
+                onClick={onLockedClick}
+                className="flex flex-col items-center justify-center gap-1 py-2 text-[11px] font-semibold text-slate-400 cursor-not-allowed"
+              >
+                <item.Icon className="size-5" />
+                <span className="leading-none">{item.label}</span>
+              </button>
+            );
+          }
+          
+          return (
+            <NavLink
+              key={item.to}
+              to={item.to}
+              end={item.end}
+              className={({isActive}) =>
+                [
+                  'flex flex-col items-center justify-center gap-1 py-2 text-[11px] font-semibold',
+                  isActive ? 'text-[#137fec]' : 'text-slate-600',
+                ].join(' ')
+              }
+            >
+              <item.Icon className="size-5" />
+              <span className="leading-none">{item.label}</span>
+            </NavLink>
+          );
+        })}
       </div>
     </nav>
   );
@@ -213,10 +246,16 @@ function PosDataGuard({children}: {children: React.ReactNode}) {
 
 function PosInnerLayout({onLogout}: {onLogout: () => void}) {
   const {account} = usePos();
+  const [showExpiredModal, setShowExpiredModal] = useState(false);
   
   const expiryDate = account?.subscriptionExpiresAt ? new Date(account.subscriptionExpiresAt) : null;
   const daysLeft = expiryDate ? Math.ceil((expiryDate.getTime() - Date.now()) / (1000 * 60 * 60 * 24)) : 0;
   const isTrial = daysLeft > 0 && daysLeft <= 7;
+  const isExpired = expiryDate ? expiryDate.getTime() <= Date.now() : false;
+
+  const handleLockedClick = () => {
+    setShowExpiredModal(true);
+  };
 
   return (
     <div className="min-h-screen bg-[#f6f7f8] text-slate-900 flex flex-col">
@@ -227,12 +266,26 @@ function PosInnerLayout({onLogout}: {onLogout: () => void}) {
         </div>
       )}
       <div className="flex flex-1 min-h-0">
-        <DesktopSidebar onLogout={onLogout} isAdmin={account?.isAdmin} daysLeft={daysLeft} />
+        <DesktopSidebar onLogout={onLogout} isAdmin={account?.isAdmin} daysLeft={daysLeft} isExpired={isExpired} onLockedClick={handleLockedClick} />
         <div className="flex-1 min-w-0 pb-16 md:pb-0 overflow-hidden flex flex-col">
           <Outlet />
         </div>
       </div>
-      <MobileBottomNav />
+      <MobileBottomNav isExpired={isExpired} isAdmin={account?.isAdmin} onLockedClick={handleLockedClick} />
+      
+      <Modal
+        isOpen={showExpiredModal}
+        onClose={() => setShowExpiredModal(false)}
+        onConfirm={() => {
+          window.open(`https://wa.me/6285363407399?text=Halo%20Admin%20Anti%20Rugi,%20saya%20ingin%20memperpanjang%20masa%20aktif%20akun%20saya.%0A%0ANama%20Toko:%20*${encodeURIComponent(account?.storeName || '')}*%0AStatus:%20Masa%20Aktif%20Habis%0A%0AMohon%20informasi%20paket%20perpanjangan.%20Terima%20kasih!`, '_blank');
+          setShowExpiredModal(false);
+        }}
+        title="Masa Aktif Berakhir"
+        message="Masa uji coba atau langganan Anda telah habis. Silakan hubungi Customer Service untuk memperpanjang akses."
+        type="warning"
+        confirmText="Hubungi CS"
+        cancelText="Tutup"
+      />
     </div>
   );
 }
